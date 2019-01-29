@@ -1,0 +1,36 @@
+﻿p {
+    font-weight: 900;
+}
+
+body {
+    background: url(../../Content/img/bg1.jpg);
+    background-size: cover;
+    background-attachment: fixed; /*Это свойство заставляет фон менять масштаб при изменении размеров содержащего его контейнера */
+    background-repeat: no-repeat; /*Фон не повторяется */
+    background-position: center center;
+}
+
+.semiopacity {
+    background: #ffffcc; /* Цвет фона */
+    padding: 5px; /* Поля вокруг текста */
+    opacity: 0.8; /* Полупрозрачный фон */
+    filter: alpha(Opacity=80); /* Прозрачность в IE */
+    color: black; /* Цвет текста */
+}
+
+h3 {
+    text-align: center;
+    font-weight: bolder;
+}
+
+.search {
+    text-align: center;
+    margin-top: 10%;
+    /*position:relative;*/
+    font-weight: bolder;
+}
+
+.input_field {
+    border-radius: 5px;
+    border-width: medium;
+}

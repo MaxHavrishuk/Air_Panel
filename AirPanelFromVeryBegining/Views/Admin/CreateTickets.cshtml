@@ -1,0 +1,58 @@
+﻿@model BusinessLogicProject.Models.ViewModels.CreateTicketsViewModel
+
+@{
+    ViewBag.Title = "Додавання Квитків";
+}
+
+<h2>Квиток:</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Додання квитків</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.FlightId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.FlightId)
+            @Html.DisplayFor(model => model.FlightId, new { htmlAttributes = new { @class = "form-control" } })
+       
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price,"Ціна", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Count, "Кількість",htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToClass, "Клас", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.ToClass, "Оберіть Клас", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Додати Квитки" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <p class="semiopacity">@Html.ActionLink("На Головну", "Index", "Home")</p>
+</div>

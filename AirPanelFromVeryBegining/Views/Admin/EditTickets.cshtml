@@ -1,0 +1,85 @@
+﻿@*@model IEnumerable<BusinessLogicProject.Ticket>*@
+@*@model IEnumerable<BusinessLogicProject.Models.FlightAndTicketsViewModel>*@
+
+@using BusinessLogicProject.Models
+@model FlightAndTicketsViewModel
+
+
+@{
+    ViewBag.Title = "Редагування Квитка";
+}
+
+<h2>Редагування Квитків:</h2>
+
+<h4>
+    № Рейсу - @Model.Flight.FlightNumber<br />
+    Авіялінія - @Model.Flight.Airline<br />
+    Відправлення - @Model.Flight.OriginCity, @Model.Flight.DateTimeOrigin <br />
+    Прибуття - @Model.Flight.DestinationCity, @Model.Flight.DateTimeDestination<br />
+    Тривалість Польоту - @Model.Flight.FlightDuration<br />
+
+</h4>
+<p>
+
+    @Html.ActionLink("Видалити всі квитки рейсу", "DeleteTickets", new { id = Model.Flight.FlightId })<br />
+    @Html.ActionLink("Додати квитки", "CreateTickets", new { id = Model.Flight.FlightId })
+
+</p><br />
+
+<p> @Html.ActionLink("До Редагування Рейсу", "FindFlight", new { id = Model.Flight.FlightId })</p>
+
+<form method="post" id="my_form"></form>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tickets[0].TicketId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tickets[0].Clas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tickets[0].Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tickets[0].Status)
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model.Tickets)
+    {
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketId)
+
+            </td>
+            <td>
+                @Html.EditorFor(modelItem => item.Clas, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(modelItem => item.Clas, "", new { @class = "text-danger" })
+
+            </td>
+            <td>
+
+                @Html.EditorFor(modelItem => item.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(modelItem => item.Price, "", new { @class = "text-danger" })
+            </td>
+            <td>
+
+                @Html.EditorFor(modelItem => item.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(modelItem => item.Status, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.ActionLink("Видалити", "DeleteTicket", new { id = item.TicketId, idTwo = item.FlightId })
+            </td>
+
+        </tr>
+
+    }
+
+</table>

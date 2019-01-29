@@ -1,0 +1,60 @@
+﻿@model IEnumerable<BusinessLogicProject.Passenger>
+
+@{
+    ViewBag.Title = "Пасажири Рейсу";
+}
+
+<h2>Пасажири</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PassengerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PassengerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PassengerId })
+        </td>
+    </tr>
+}
+
+</table>

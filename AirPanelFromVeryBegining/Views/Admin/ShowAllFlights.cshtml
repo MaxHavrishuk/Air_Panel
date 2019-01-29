@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<BusinessLogicProject.Flight>
+@using PagedList.Mvc
+@{
+    /**/
+
+    ViewBag.Title = "ShowAllFlights";
+}
+
+
+<h2>Всі Рейси:</h2>
+
+<style type="text/css">
+    TABLE {
+        margin: auto; /* По центру */
+        width: 65em; /* Ширина таблицы */
+        border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    }
+
+    TD, TH {
+        padding: 5px; /* Поля вокруг содержимого таблицы */
+        border: 1px solid black; /* Параметры рамки */
+        font-weight: 700;
+    }
+</style>
+
+@if (Model == null)
+{
+
+
+}
+else
+{
+    if (!Model.Any())
+    {
+        <h3 class="text-warning">Рейсів не знайдено!</h3>
+    }
+    else
+    {
+
+        <div>
+            <table class="semiopacity">
+
+                <caption><h3></h3></caption>
+                <tr>
+                    <td><p>Рейс</p></td>
+                    <td><p>Відправлення</p></td>
+                    <td><p>Тривалість Польоту</p></td>
+                    <td><p>Прибуття</p></td>
+                    <td><p>Покупка</p></td>
+                </tr>
+                @foreach (var b in Model)
+                {
+                    <tr>
+                        <td>
+
+                            <p>
+                                @b.OriginCity - @b.DestinationCity
+                            </p>
+                            <p class="semiopacity">
+                                Авіалінія - @b.Airline <br />
+                                № Рейсу: @b.FlightNumber<br />
+                              
+
+                             
+                            </td>
+
+                            <td>
+                                <p>
+                                    @b.DateTimeOrigin.ToString("t")<br />
+                                    @b.DateTimeOrigin.ToString("M")
+                                </p>
+                            </td>
+                            <td><p>@b.FlightDuration.ToString("hh") год.  @b.FlightDuration.ToString("mm") хв. </p></td>
+                            <td>
+                                <p>
+                                    @b.DateTimeDestination.ToString("t")<br />
+                                    @b.DateTimeDestination.ToString("M")
+                                </p>
+                            </td>
+
+                            <td><p>Купити</p></td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <td><p><a href="/Admin/FindFlight/@b.FlightId">Редагувати</a></p></td>
+                                <td><p><a href="/Admin/FindTickets/@b.FlightId">Квитки</a></p></td>
+                                <td><p><a href="/Admin/DeleteFlight/@b.FlightId">Видалити</a></p></td>
+
+                            }
+                        </tr>
+                        
+                    }
+            </table>
+            <br />
+            Сторінка @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) з @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("ShowAllFlights", new { page }))
+
+        </div>
+    }
+
+}

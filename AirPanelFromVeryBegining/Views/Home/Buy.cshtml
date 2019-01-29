@@ -1,0 +1,150 @@
+﻿
+@using BusinessLogicProject.Models.ViewModels
+@model BuyViewModel
+
+@{
+    ViewBag.Title = "Buy";
+}
+<style type="text/css">
+    TABLE {
+        margin: auto; /* По центру */
+        width: 45em; /* Ширина таблицы */
+        border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    }
+
+    TD, TH {
+        padding: 5px; /* Поля вокруг содержимого таблицы */
+        border: 1px solid black; /* Параметры рамки */
+        font-weight: 400;
+    }
+</style>
+
+<h2>Інформація про рейс:</h2>
+<h4>
+    № Рейсу - @Model.Flight.FlightNumber<br />
+    Авіялінія - @Model.Flight.Airline<br />
+    Відправлення - @Model.Flight.OriginCity, @Model.Flight.DateTimeOrigin <br />
+    Прибуття - @Model.Flight.DestinationCity, @Model.Flight.DateTimeDestination<br />
+    Тривалість Польоту - @Model.Flight.FlightDuration<br />
+
+</h4>
+<div>
+    <table class="semiopacity">
+        <tr>
+            <td> <p>Клас</p></td>
+            <td> <p>Ціна</p></td>
+            <td> <p>Кількість</p></td>
+
+        </tr>
+        <tr>
+            <td>
+                Економ
+            </td>
+            @if (@Model.Tickets.Where(e => e.Clas == "Econom").Count() == 0)
+            {
+                <td>
+                    0
+                </td>
+                <td>
+                    0
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Model.Tickets.Where(e => e.Clas == "Econom").FirstOrDefault().Price $
+                </td>
+                <td>
+                    @Model.Tickets.Where(e => e.Clas == "Econom" && e.Status == null).Count()
+                </td>
+            }
+
+
+
+        </tr>
+        <tr>
+            <td>
+                Бізнес
+            </td>
+            @if (@Model.Tickets.Where(e => e.Clas == "Buisness").Count() == 0)
+            {
+                <td>
+                    0
+                </td>
+                <td>
+                    0
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Model.Tickets.Where(e => e.Clas == "Buisness").FirstOrDefault().Price $
+                </td>
+                <td>
+                    @Model.Tickets.Where(e => e.Clas == "Buisness" && e.Status == null).Count()
+                </td>
+            }
+
+
+        </tr>
+    </table>
+</div>
+
+
+@using (Html.BeginForm("BuyForm", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.Flight.FlightId);
+    <p>Квиток:</p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToClass, "Оберіть Клас", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.ToClass, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Count, "Кількість квитків", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p>Інформація пасажира:</p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Passenger.FirstName, "Ім'я", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Passenger.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Passenger.FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Passenger.LastName, "Прізвище", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Passenger.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Passenger.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sex, "Стать", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.Sex, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Passenger.Birthday, "Дата Народження", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Passenger.Birthday, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.Passenger.Birthday, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Купити(ТЕСТ)" class="btn btn-default" />
+        </div>
+    </div>
+
+
+
+
+}

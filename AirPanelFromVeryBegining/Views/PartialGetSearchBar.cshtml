@@ -1,0 +1,89 @@
+﻿
+<script>
+        $(function () {
+            var availableTags = [
+                "Amsterdam",
+                "Athens",
+                "Berlin",
+                "Bern",
+                "Brussels",
+                "Budapest",
+                "Dublin",
+                "Gdansk",
+                "Helsinki",
+                "Kyiv",
+                "L'viv",
+                "London",
+                "Madrid",
+                "Minsk",
+                "Monaco",
+                "Oslo",
+                "Paris",
+                "Prague",
+                "Riga",
+                "Rome",
+                "San-Marino",
+                "Tallinn",
+                "Tirana",
+                "Viena",
+                "Warsaw"
+            ];
+            $("#where").autocomplete({
+                source: availableTags
+            });
+        });
+</script>
+<script>
+        $(function () {
+            var availableTags = [
+                "Amsterdam",
+                "Athens",
+                "Berlin",
+                "Bern",
+                "Brussels",
+                "Budapest",
+                "Dublin",
+                "Gdansk",
+                "Helsinki",
+                "Kyiv",
+                "L'viv",
+                "London",
+                "Madrid",
+                "Minsk",
+                "Monaco",
+                "Oslo",
+                "Paris",
+                "Prague",
+                "Riga",
+                "Rome",
+                "San-Marino",
+                "Tallinn",
+                "Tirana",
+                "Viena",
+                "Warsaw"
+            ];
+            $("#from").autocomplete({
+                source: availableTags
+            });
+        });
+</script>
+
+<div class="search">
+    <form method="get">
+        <label for="tags">ЗВІДКИ</label>
+        <input name="OriginCity" id="where" required>
+        <label>КУДИ</label>
+        <input name="DestinationCity" id="from" required>
+        <label>КОЛИ</label>
+        <input type="date" name="DateTimeOrigin" required />
+
+        <input type="submit" value="Пошук" name="Index" class="btn">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input type="button" value="Показати Всі" onClick='location.href="Admin/ShowAllFlights"' class="btn">
+        }
+    </form>
+  
+
+</div>

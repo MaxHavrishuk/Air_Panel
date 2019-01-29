@@ -1,0 +1,160 @@
+﻿@model BusinessLogicProject.Flight
+
+<script>
+    $(function () {
+        var availableTags = [
+            "Amsterdam",
+            "Athens",
+            "Berlin",
+            "Bern",
+            "Brussels",
+            "Budapest",
+            "Dublin",
+            "Gdansk",
+            "Helsinki",
+            "Kyiv",
+            "L'viv",
+            "London",
+            "Madrid",
+            "Minsk",
+            "Monaco",
+            "Oslo",
+            "Paris",
+            "Prague",
+            "Riga",
+            "Rome",
+            "San-Marino",
+            "Tallinn",
+            "Tirana",
+            "Viena",
+            "Warsaw"
+        ];
+        $("#where").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
+<script>
+    $(function () {
+        var availableTags = [
+            "Amsterdam",
+            "Athens",
+            "Berlin",
+            "Bern",
+            "Brussels",
+            "Budapest",
+            "Dublin",
+            "Gdansk",
+            "Helsinki",
+            "Kyiv",
+            "L'viv",
+            "London",
+            "Madrid",
+            "Minsk",
+            "Monaco",
+            "Oslo",
+            "Paris",
+            "Prague",
+            "Riga",
+            "Rome",
+            "San-Marino",
+            "Tallinn",
+            "Tirana",
+            "Viena",
+            "Warsaw"
+        ];
+        $("#from").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
+@{
+    ViewBag.Title = "Редагування рейсу";
+}
+
+<h2>Редагування рейсу</h2>
+
+@using (Html.BeginForm("EditFlight", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Рейс № @Model.FlightNumber</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.FlightId)
+    
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OriginCity, "Місто Відправлення", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.OriginCity, new { htmlAttributes = new { @class = "form-control", @id = "from" } })
+            @Html.ValidationMessageFor(model => model.OriginCity, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DestinationCity, "Місто Прибуття", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DestinationCity, new { htmlAttributes = new { @class = "form-control", @id = "where" } })
+            @Html.ValidationMessageFor(model => model.DestinationCity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DateTimeOrigin, "Дата Відправлення", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateTimeOrigin, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+            @Html.ValidationMessageFor(model => model.DateTimeOrigin, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DateTimeDestination, "Дата Прибуття", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateTimeDestination, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+
+            @Html.ValidationMessageFor(model => model.DateTimeDestination, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FlightNumber, "№ Рейса", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FlightNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FlightNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Airline, "Авіалінія", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Airline, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Airline, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <p> @Html.ActionLink("Редагувати Квитки", "FindTickets", new { id = Model.FlightId })</p>
+            <p> @Html.ActionLink("Показати Пасажирів", "ShowPassengers", new { id = Model.FlightId })</p>
+            <input type="submit" value="Зберегти" class="btn btn-default" name="EditFlight" />
+        </div>
+
+    </div>
+
+</div>
+}
+
+
+<div>
+    <p class="semiopacity">@Html.ActionLink("На Головну", "Index", "Home")</p>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
