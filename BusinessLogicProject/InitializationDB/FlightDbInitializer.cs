@@ -1,4 +1,5 @@
-﻿using BusinessLogicProject.Contexts;
+﻿using BusinessLogicProject.BusinessLogicMethods;
+using BusinessLogicProject.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -94,9 +95,17 @@ namespace BusinessLogicProject.InitializationDB
         }
 
     }
-    //public class UserInitializer : DropCreateDatabaseAlways<UserContext>
-    //{
+	public class UserInitializer : DropCreateDatabaseAlways<UserContext>
+	{
+		
+		public override void InitializeDatabase(UserContext context)
+		{
+			var pass = SHA.GenerateSHA256String("123");
+			context.Users.Add(new Models.User() { Age = 20, Name = "max", PassWord = pass });
+			context.SaveChanges();
+			base.Seed(context);
+		}
 
-    //}
+	}
 
 }

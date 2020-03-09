@@ -13,7 +13,7 @@ namespace AirPanelFromVeryBegining
             //Ініціалізація бази даних (з рандомними даними)
             Database.SetInitializer(new FlightDbInitializer());
 
-            //Database.SetInitializer(new UserInitializer());
+            Database.SetInitializer(new UserInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
